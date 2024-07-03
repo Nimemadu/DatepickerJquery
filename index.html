@@ -1,0 +1,45 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datepicker Example</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <style>
+        .ui-datepicker .ui-datepicker-calendar .ui-state-disabled {
+            background: #f2f2f2;
+            border: 1px solid #ddd;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+<input type="text" id="datepicker">
+
+<script>
+$(function() {
+    // Define the holidays
+    var holidays = ["2024-12-25", "2024-12-31"]; // Example holidays (YYYY-MM-DD format)
+
+    // Initialize the datepicker
+    $("#datepicker").datepicker({
+        beforeShowDay: function(date) {
+            var day = date.getDay();
+            var formattedDate = $.datepicker.formatDate('yy-mm-dd', date);
+
+            // Disable Sundays (day 0) and holidays
+            if (day === 0 || holidays.indexOf(formattedDate) !== -1) {
+                return [false, "", "Unavailable"];
+            } else {
+                return [true, ""];
+            }
+        }
+    });
+});
+</script>
+
+</body>
+</html>
